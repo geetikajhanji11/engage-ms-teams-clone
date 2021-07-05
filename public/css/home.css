@@ -1,0 +1,43 @@
+
+.nav-item {
+    padding: 4%;
+    font-size: 1.5rem;
+}
+
+.heading {
+    align-self: center;
+    padding: 4%;
+}
+
+.heading h1 {
+    font-size: 5rem;
+    /* padding: 4%; */
+    color: #1B262C;
+}
+
+.heading h2 {
+    font-size: 2rem;
+}
+
+.heading-container {
+    background-color: #BBE1FA;
+    padding: 6%;
+}
+
+.heading-img {
+    margin: auto;
+}
+
+.heading-container img {
+    width: 100%;
+    border-radius: 5%;
+
+}
+
+.buttons {
+    padding-top: 5%;
+}
+
+.text {
+    font-size: 1.3rem;
+}

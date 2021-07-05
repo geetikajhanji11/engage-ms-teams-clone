@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script>
+    const ROOM_ID='<%=obj.roomId%>'
+    const firstName  ='<%=obj.firstName%>'
+    const lastName = "<%=obj.lastName%>"
+  </script>
+  
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+
+  <script src="js/script.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/room.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <title>Room</title>
+
+  <script src="https://kit.fontawesome.com/2fe739a957.js" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+
+
+  <!-- <button onclick="lol()">Click Me</button> -->
+  <section>
+    
+  <div class="container-fluid">
+
+  
+
+  <div class="room-container row">
+
+
+    <!-- ========= VIDEO ========= -->
+    <div class="video-section col-9">
+
+      <!-- All the videos -->
+      <div class="video-screen">
+        <div id="video-grid"></div>
+      </div>
+      
+      <!-- Video controls -->
+      <div class="video-controls">
+
+        <div class="video-controls-buttons row">
+
+          <!-- copy room ID -->
+          <div class="room-id copy-roomid">
+            <span>Copy RoomID</span>
+            <i class="fas fa-copy"></i>
+          </div>
+
+          <!-- mute -->
+          <div class="bottom-btn">
+            <div onclick="toggleMute()">
+              <i class="mute-unmute fas fa-microphone"></i>
+            </div>
+          </div>
+          
+
+          <!-- stop video -->
+          <div class="bottom-btn">
+            <div onclick="toggleVideo()">
+              <i class="play-stop fas fa-video"></i>
+            </div>
+          </div>
+          
+
+          <!-- chat -->
+          <div class="bottom-btn">
+            <div onclick="toggleChat()">
+              <i class="fas fa-comment"></i>
+            </div>
+          </div>
+          
+
+          <!-- screen share -->
+          <div class="bottom-btn">
+            <div onclick="screenShare()">
+              <i class="fas fa-share-square"></i>
+            </div>
+          </div>
+          
+
+          <!-- show participants -->
+          <div class="bottom-btn">
+            <div onclick="toggleParticipants()">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+          
+
+          <!-- leave meeting -->
+          <div class="leave-meeting">
+            <span>Leave Meeting </span>
+            <i class="fas fa-phone"></i>
+          </div>
+
+        </div>
+
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- ========= CHAT ========= -->
+    <div class="chat-section col-3">
+
+      <div class="chat-header">
+        <h6>Chat</h6>
+        <hr>
+      </div>
+
+      <div class="chat-window">
+        <div class="messages container-fluid">
+        </div>
+      </div>
+
+      <div class="message-input">
+        <input id="message" type="text" placeholder="Type message here...">
+      </div>
+
+    </div>
+
+    
+    <!-- ========= PARTICIPANTS ========= -->
+
+    <div class="participants-section col-3">
+
+      <div class="chat-header">
+        <h6>Participants</h6>
+        <hr>
+      </div>
+
+      <div class="participants">
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
+
+</div>
+
+</section>
+
+</body>
+</html>
