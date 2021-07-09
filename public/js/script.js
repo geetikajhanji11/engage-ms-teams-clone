@@ -5,7 +5,7 @@ const videoGrid = document.getElementById('video-grid')
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '3000'
+  port: '443'
 })
 
 let participants = []
@@ -438,12 +438,16 @@ const toggleChat = () => {
 
   if(isShowingParticipants) {
     isShowingParticipants = false
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
+
   }
     
   changeSections(participants_section, chat_section, isShowingChat)
   if(isShowingChat) {
+    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
     isShowingChat = false
   } else {
+    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.add("show-chat")
     isShowingChat = true
   }
 
@@ -479,7 +483,9 @@ const addParticipant = (participant, isMe = false) => {
 
 const removeParticipant = id => {
   const participant = document.getElementById(id)
-  participant.remove()
+  if(participant) {
+    participant.remove()
+  }
 }
 
 
@@ -493,6 +499,8 @@ const toggleParticipants = () => {
 
   if(isShowingChat) {
     isShowingChat = false
+    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
+
     chat_section.style.display = "none"
   }
 
@@ -503,8 +511,12 @@ const toggleParticipants = () => {
 
   if(!isShowingParticipants) {
     isShowingParticipants = true
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.add("show-chat")
+
   } else {
     isShowingParticipants = false
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
+
   }
 
 }
@@ -533,9 +545,21 @@ const changeSections = (sectionOne, sectionTwo, isShowingTwo) => {
 
 
 
+// ----------------- COPY ROOM ID -------------------
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copied: " + copyText.value;
+}
 
-
-
+function outFunc() {
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copy to clipboard";
+}
 
 
 

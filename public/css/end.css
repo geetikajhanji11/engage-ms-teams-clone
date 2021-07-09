@@ -1,0 +1,32 @@
+
+.navbar-brand img {
+    width: 70px;
+}
+.nav-item {
+    padding: 4%;
+    font-size: 1.5rem;
+    width: 300px;
+}
+
+#navbarNav a {
+    color: darkgray;
+    font-size: 1.8rem;
+}
+
+.end-container {
+    text-align: center;
+    height: 100vh;
+    background-color: #222831;
+}
+
+
+.end-container h1 {
+    color: cadetblue;
+    padding: 2%;
+    font-weight: 800;
+    font-size: 4rem;
+}
+
+.end-container div {
+    padding-top: 12%;
+}

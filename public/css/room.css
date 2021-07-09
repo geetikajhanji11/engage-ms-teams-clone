@@ -47,6 +47,7 @@ video {
 
 .video__overlay div {
     background-color: rgba(0, 0, 0, 0.2);
+    font-weight: 700;
 }
 
 /* .video-controls {
@@ -85,6 +86,7 @@ video {
     border-radius: 50%;
     width: 60px;
     text-align: center;
+    border: 1px solid;
 }
 
 .bottom-btn :hover {
@@ -93,6 +95,10 @@ video {
 
 .mute, .stop {
     color: #BE3144;
+}
+
+.show-chat {
+    border: 3px solid #5F939A !important;
 }
 
 .leave-meeting, 
@@ -121,6 +127,14 @@ video {
 
 .leave-meeting:hover {
     background-color: crimson;
+}
+
+.leave-meeting a {
+    color: #f5f5f5;
+}
+.leave-meeting a:hover {
+    text-decoration: none;
+    color: #f5f5f5;
 }
 
 .chat-section {
@@ -198,7 +212,9 @@ body {
 }
 
 .firstName {
-    color: lightcoral !important;
+    color: #5F939A !important;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .my-message .message, 
@@ -217,7 +233,69 @@ body {
 /* ----------------- PARTICIPANTS ------------------------ */
 .participants-section {
     display: none;
+    background-color: currentColor;
 }
+
+.participants p {
+    color: #5F939A;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+/* COPY TO CLIPBOARD */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+
+
+
+
+
+
+
 
 
 

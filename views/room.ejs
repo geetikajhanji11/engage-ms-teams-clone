@@ -9,6 +9,16 @@
     const ROOM_ID='<%=obj.roomId%>'
     const firstName  ='<%=obj.firstName%>'
     const lastName = "<%=obj.lastName%>"
+    // let chat_room_id
+
+    // const chatRoomId = () => {
+    //   chat_room_id = ROOM_ID
+    //   chat_room_id = chat_room_id.replace("-vid", "")
+    //   let form_room_id = document.getElementById("room_id")
+    //   form_room_id.value = chat_room_id
+    //   console.log(form_room_id)
+    // }
+    // chatRoomId()
   </script>
   
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
@@ -61,10 +71,11 @@
         <div class="video-controls-buttons row">
 
           <!-- copy room ID -->
-          <div class="room-id copy-roomid">
-            <span>Copy RoomID</span>
-            <i class="fas fa-copy"></i>
-          </div>
+            <div class="room-id copy-roomid">
+              <span>Copy RoomID</span>
+              <i class="fas fa-copy"></i>
+            </div>
+          
 
           <!-- mute -->
           <div class="bottom-btn">
@@ -84,18 +95,18 @@
 
           <!-- chat -->
           <div class="bottom-btn">
-            <div onclick="toggleChat()">
+            <div class="show-chat" onclick="toggleChat()">
               <i class="fas fa-comment"></i>
             </div>
           </div>
           
 
           <!-- screen share -->
-          <div class="bottom-btn">
+          <!-- <div class="bottom-btn">
             <div onclick="screenShare()">
               <i class="fas fa-share-square"></i>
             </div>
-          </div>
+          </div> -->
           
 
           <!-- show participants -->
@@ -108,10 +119,21 @@
 
           <!-- leave meeting -->
           <div class="leave-meeting">
-            <span>Leave Meeting </span>
-            <i class="fas fa-phone"></i>
+              <a href="/meeting/end">
+                <span>Leave Meeting </span>
+                <i class="fas fa-phone"></i>
+              </a>
           </div>
 
+          <!-- <form name="room-input" action="/chate" method="POST">
+        
+              <input name="firstName" type="hidden" value='<%=obj.firstName%>'>
+              <input name="lastName" type="hidden" value='<%=obj.lastName%>'>
+            <input id="room_id" type="hidden" name="roomId">
+            <input type="submit" onclick="chatRoomId()">
+
+    
+          </form> -->
         </div>
 
         

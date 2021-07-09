@@ -1,27 +1,47 @@
+.home {
+    background-color: #343a40;
+}
 
+.navbar-brand img {
+    width: 70px;
+}
 .nav-item {
     padding: 4%;
     font-size: 1.5rem;
+    width: 300px;
+}
+
+#navbarNav a {
+    color: darkgray;
+    font-size: 1.8rem;
 }
 
 .heading {
     align-self: center;
     padding: 4%;
+    padding-right: 100px !important;
 }
 
 .heading h1 {
     font-size: 5rem;
     /* padding: 4%; */
     color: #1B262C;
+    color: #5F939A;
 }
 
 .heading h2 {
     font-size: 2rem;
+    color: dimgray;
+    font-weight: 100;
 }
 
+
+
 .heading-container {
-    background-color: #BBE1FA;
-    padding: 6%;
+    /* background-color: #BBE1FA; */
+    background-color: #222831;
+    /* padding: 5%; */
+    padding: 4%;
 }
 
 .heading-img {
@@ -34,10 +54,65 @@
 
 }
 
-.buttons {
-    padding-top: 5%;
+form {
+    padding-top: 30px;
+}
+
+label {
+    /* color: darkgray; */
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #5F939A;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.input-row {
+    padding-top: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-label {
+    color: dimgray;
+    font-weight: 700;
+    font-size: medium;
+}
+
+.or {
+    font-size: 3rem;
+    color: darkcyan;
+    font-weight: 700;
 }
 
 .text {
     font-size: 1.3rem;
+}
+/* 
+#first-name,
+#last-name {
+    width: 50%;
+} */
+
+.roomId-input {
+    width: 70% !important;
+    display: inline-block !important;
+}
+
+.row-btn {
+    margin: 2px;
+}
+
+.btn-secondary {
+    background-color: #3282B8 !important;
+    border-color: #3282B8 !important;
+}
+
+.btn-secondary:hover {
+    background-color: #5F939A !important;
+    border-color: #5F939A !important;
+}
+
+.type-roomId-input {
+    margin-left: 7px !important;
 }

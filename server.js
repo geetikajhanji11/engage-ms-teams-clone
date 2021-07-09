@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+let data = {}
 
 // ------------VIEWS----------
 
@@ -27,41 +28,37 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   const roomId = uuidV4()
   res.render('home', {roomId})
-  // res.render('details')
 })
 app.post('/', (req, res) => {
-    let roomId = req.body.roomId
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
+  let roomId = req.body.roomId
+  const firstName = req.body.firstName
+  const lastName = req.body.lastName
 
-    if(roomId == "") {
-      roomId = uuidV4()
-      
-    }
+  if(roomId == "") {
+    roomId = uuidV4()
+  }
 
-    console.log(`Room id: ${roomId}`)
-    console.log(firstName, lastName)
-
-
-    const data = {
-      roomId: roomId,
-      firstName: firstName,
-      lastName: lastName
-    }
-
-
-    console.log(data)
-
-    // res.render("room", {roomId, firstName, lastName});
-    res.render("room", {obj: data});
+  data = {
+    roomId: roomId,
+    firstName: firstName,
+    lastName: lastName
+  }
+  // res.redirect(`/${roomId}`)
+  res.render("room", {obj: data})
 
 }, )
 
 // room
 app.get('/:room', (req, res) => {
-  // res.render('room', { roomId: req.params.room })
-  res.render('room', {obj: { roomId: req.params.room }})
+  res.render('room', {obj: data})
 })
+
+app.get("/meeting/end", (req, res) => {
+  res.render("end")
+})
+
+
+
 
 
 
@@ -77,6 +74,7 @@ io.on('connection', socket => {
     })
 
     socket.on('send-message', (data) => {
+      // console.log("senind message")
       socket.broadcast.to(data.roomId).emit('receive-message', {message: data.message, firstName: data.firstName})
     })
 
@@ -91,4 +89,4 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(3000)
+server.listen(process.env.PORT||3000)
