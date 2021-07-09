@@ -39,7 +39,7 @@ This project is a solution to the challenge posed by the Microsoft Engage 2021 E
 * Chatroom During Call
 * Show list of all Participants
 
-![project-image](public/assets/home.png)
+![project-image](public/assets/home.PNG)
 
 ## Code Overview
 
