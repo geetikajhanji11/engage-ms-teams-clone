@@ -513,18 +513,21 @@ const changeSections = (sectionOne, sectionTwo, isShowingTwo) => {
 
 
 // ------------------------- COPY ROOM ID -------------------------
-function myFunction() {
-  var copyText = document.getElementById("myInput");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
+function copyToClipboard() {
+  var tempInput = document.createElement("input");
+  tempInput.value = ROOM_ID;
+  document.body.appendChild(tempInput);
+  tempInput.select();
   document.execCommand("copy");
-  
-  var tooltip = document.getElementById("myTooltip");
-  tooltip.innerHTML = "Copied: " + copyText.value;
+  document.body.removeChild(tempInput);
+  // alert("Copied ROOM ID: " + tempInput.value);
+  var tooltip = document.getElementsByClassName("tooltiptext")[0]
+  tooltip.innerHTML = `Copied: ${ROOM_ID}`;
+
 }
 
 function outFunc() {
-  var tooltip = document.getElementById("myTooltip");
+  var tooltip = document.getElementsByClassName("tooltiptext")[0]
   tooltip.innerHTML = "Copy to clipboard";
 }
 

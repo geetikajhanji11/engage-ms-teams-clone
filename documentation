@@ -1,0 +1,70 @@
+Why use WebRTC P2P mesh?
+
+It is cheaper to operate => Since there are no media servers, the media flows directly between the users. With WebRTC, oftentimes, the biggest cost is bandwidth. 
+By not routing media through servers as much as possible (TURN relay will still be needed some of the time), the cost of running the service reduces drastically
+
+
+1. function connectToNewUser(userId, stream) { }
+⦁	userId => id of the new user
+⦁	stream => stream of the new user
+⦁	establishes a peer connection with the new user to get their userId, firstName and lastName.
+⦁	then, it calls the peer (new user) and listens for the 'stream' event which then grants access to the new user's stream which we then append to the current user's screen using the function addVideoStream()
+
+2. function addVideoStream(video, stream, id) { }
+⦁	video => HTML video element
+⦁	stream => the user's audio/video stream
+⦁	id => user's userId
+⦁	assigns the video's .srcobject property to the stream parmameter. Listens for the metadata event is loaded and then plays the video.
+⦁	creates a div element video__overlay that eventually contains the name of the user whose stream will being displayed 
+⦁	creates another div element div and appends the video element along with video__overlay element and finally appends this div to the videoGrid
+
+3. function addNameTag(id) { }
+⦁	id => userId of any user
+⦁	gets the inner div (video__overlay) of the video element of the user with userId of id and stores this in name_element
+⦁	searches for the user from the list of participants to get the data of that particular user. If found, it then overrides the innerHTML of the name tag to the actual name of the user so that it is displayed along with the user's video.
+
+4. const toggleMute = () => { }
+⦁	if the mic is muted, then unmute it and change the botton mic icon to unmuted and also reflect the mic changes to other users.
+⦁	if the mic is unmuted, then mute it and change the botton mic icon to mutedmic and also reflect the mic changes to other users.
+
+5. const toggleVideo = () => { }
+⦁	if the video is stopped, then play it and change the botton video icon to play and also reflect the video changes to other users.
+⦁	if the video is played, then stop it and change the botton video icon to stop and also reflect the video changes to other users.
+
+6. const newUserJoinedRoom = data => { }
+⦁	data => object, contains id, firstName and lastName of the user
+⦁	creates a new p element and sets its innerhtml to the name of the user to indicate that a new user has joined in the chatroom.
+
+7. const createMessageWithName = (message, firstName, className) = { }
+⦁	message => the message sent by any user
+⦁	firstName => the first name of the user that sent the message
+⦁	className => class type of the message. Can be "my-message" or "user-message". these classes help in distinguishing the current user's message and other users' messages. different css styling is applied for my-message and user-message.
+⦁	creates the following structure:
+ 
+
+8. const createMessage = (message, firstName, className) = { }
+⦁	message => the message sent by any user
+⦁	firstName => the first name of the user that sent the message
+⦁	className => class type of the message. Can be "my-message" or "user-message". these classes help in distinguishing the current user's message and other users' messages. different css styling is applied for my-message and user-message.
+⦁	same as that of createMessageWithName. Just omits the "firstName" if the user has already sent the message before consecutively.
+⦁	also checks for undefined condition which may arise when "new user joined" shows up in the chat.
+
+9. const toggleChat = () => { }
+⦁	toggles the chatroom on button click.
+⦁	if the chatroom is open, closes it. Sets isShowingChat to false (isShowingChat = true by default)
+⦁	if the chatroom is closed, opens it. Sets isShowingChat to true
+⦁	calls the changeSection function actually implement it.
+
+10. const toggleParticipants = () => { }
+⦁	toggles the participants list on button click.
+⦁	if the participants list is open, closes it. Sets isShowingParticipant to false (isShowingChat = false by default)
+⦁	if the participants list is closed, opens it. Sets isShowingParticipant to true
+⦁	calls the changeSection function actually implement it.
+
+11. const changeSections = (sectionOne, sectionTwo, isShowingTwo) => { }
+⦁	sectionOne => one of the sections (chat_section or participants_section)
+⦁	sectionTwo => other section (participants_section or chat_section)
+⦁	isShowingTwo => boolean. true if sectionTwo is showing currently
+⦁	if sectionTwo and sectionOne both are not showing, then remove the class "col-12" from video_section and add "col-9". Then show sectionTwo and hide sectionOne.
+⦁	if sectionTwo is showing already, remove class "col-9" and add "col-12" from video-section and hide sectionTwo.
+

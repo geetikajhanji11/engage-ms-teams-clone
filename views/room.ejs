@@ -46,8 +46,9 @@
 <body>
 
 
+  <input id="room-id" type="hidden" value="<%=obj.roomId%>">
 
-  <!-- <button onclick="lol()">Click Me</button> -->
+
   <section>
     
   <div class="container-fluid">
@@ -71,7 +72,8 @@
         <div class="video-controls-buttons row">
 
           <!-- copy room ID -->
-            <div class="room-id copy-roomid">
+            <div onclick="copyToClipboard()" onmouseout="outFunc()" class="room-id copy-roomid">
+              <span class="tooltiptext">Copy to clipboard</span>
               <span>Copy RoomID</span>
               <i class="fas fa-copy"></i>
             </div>

@@ -12,10 +12,10 @@
   <h3 align="center">MS Teams Clone</h3>
 
   <p align="center">
-    A video conferencing web app that can be used to connect with people anyone, anywhere!
+    A video conferencing web app that can be used to connect with anyone, anywhere!
     <br />
     <br />
-    <a href="TO BE SET">View Demo</a>
+    <a href="...........">Go To Website</a>
   </p>
 </p>
 
@@ -65,6 +65,7 @@ This project is a solution to the challenge posed by the Microsoft Engage 2021 E
 ## Getting Started
 
 Here are the instructions on setting up the project locally.
+<br>
 To get a local copy up and running, follow these steps.
 
 ### Prerequisites
@@ -89,12 +90,10 @@ First, you need to download and install node.js and npm.
    ```JS
    npm run devStart
    ```
-4. Go to this url
+4. Go to this url on your browser
    ```JS
    http://localhost:3000/
    ```
-
-
 
 
 <!-- USAGE EXAMPLES -->
@@ -109,7 +108,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Email - geetikajhanji11@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/geetikajhanji11/engage-ms-teams-clone](https://github.com/geetikajhanji11/engage-ms-teams-clone)
 

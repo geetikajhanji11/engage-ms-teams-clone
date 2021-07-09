@@ -239,14 +239,15 @@ video {
 
 /* ----------------- COPY TO CLIPBOARD ------------------------ */
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-  }
+
+.room-id:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
   
-  .tooltip .tooltiptext {
+.tooltiptext {
     visibility: hidden;
-    width: 140px;
+    width: 300px;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -254,14 +255,14 @@ video {
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 150%;
-    left: 50%;
+    bottom: 100%;
+    left: 15%;
     margin-left: -75px;
     opacity: 0;
     transition: opacity 0.3s;
-  }
+}
   
-  .tooltip .tooltiptext::after {
+.tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -270,12 +271,8 @@ video {
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-  }
+}
   
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
 
 /* -------------------- SCROLLBAR ------------------------ */
 
