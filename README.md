@@ -12,7 +12,7 @@
   <h3 align="center">MS Teams Clone</h3>
 
   <p align="center">
-    To be written.....!
+    A video conferencing web app that can be used to connect with people anyone, anywhere!
     <br />
     <br />
     <a href="TO BE SET">View Demo</a>
@@ -22,24 +22,24 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-A video conferencing web app that can be used to connect with people anywhere, anytime. 
-
-### Features:
-* Unique Rooms
-* Mutiple Participants
-* Video ON / OFF
-* Mute / Unmute
-* Chatroom
-* Show Participants
+This project is a solution to the challenge posed by the Microsoft Engage 2021 Engagement & Mentorship Program for engineering students. The challenge was to build a fully functional prototype with at least one mandatory functionality - a minimum of two participants should be able connect with each other using your product to have a video conversation.
 
 ### Built With
-* express
+* Express
+* Bootstrap
+* JQuery
+* SocketIO
+* Peerjs
 
+### Features:
+* Unique Room Creations
+* Mutiple Participant Connectivity
+* Video ON / OFF
+* Mute / Unmute
+* Chatroom During Call
+* Show list of all Participants
 
-
+![project-image](public/assets/home.png)
 
 ## Code Overview
 
@@ -48,14 +48,17 @@ A video conferencing web app that can be used to connect with people anywhere, a
 * [express](https://github.com/expressjs/express) - The server for handling and routing HTTP requests.
 * [peer](https://peerjs.com/) - The PeerServer for establishing connections between PeerJS clients.
 * [socket.io](https://socket.io/docs/v4/index.html) - For enabling real-time bidirectional event-based communication among the peers.
+* [ejs](https://ejs.co/) - For creating the website's frontend.
+* [uuid](https://www.npmjs.com/package/uuid?activeTab=readme) - For generating random unique roomID's
 
 ### Application Structure
 
 * `server.js` - This file defines our express server.
-* `public/` - This folder contains all the images, css and the javascript files required in the project.
+* `public/` - This folder contains all the static files.
+  *  `assets/` - Contains all the images used in the website.
+  *  `css/` - Contains all the css files.
+  *  `js/` - Contains all the javascript files for the project.
 * `views/` - This folder contains all the ejs files that need to be rendered.
-
-
 
 
 <!-- GETTING STARTED -->
@@ -76,7 +79,7 @@ First, you need to download and install node.js and npm.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/geetikajhanji11/engage-ms-teams-clone.git
    ```
 2. Install NPM packages
    ```sh
@@ -86,6 +89,11 @@ First, you need to download and install node.js and npm.
    ```JS
    npm run devStart
    ```
+4. Go to this url
+   ```JS
+   http://localhost:3000/
+   ```
+
 
 
 
