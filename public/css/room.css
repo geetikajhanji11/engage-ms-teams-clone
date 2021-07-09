@@ -1,14 +1,17 @@
 
-
-/* --------------- VIDEO SECTION --------------- */
+body {
+    margin: 0;
+    padding: 0;
+}
 
 .room-container {
-    background-color: rosybrown;
     height: 100vh;
     position: relative;
     display: flex;
     right: 0;
 }
+
+/* --------------- VIDEO SECTION --------------- */
 
 .video-section {
     background-color: #373A40;
@@ -57,6 +60,11 @@ video {
     width: inherit;
 
 } */
+
+
+
+/* --------------- BOTTOM BUTTONS --------------- */
+
 .video-controls {
     
     position: absolute;
@@ -73,7 +81,7 @@ video {
 .video-controls-buttons {
     width: 100%;
     background-color: #232931;
-    padding: 14px;
+    padding: 12px;
 }
 
 .bottom-btn div {
@@ -93,7 +101,8 @@ video {
     background-color: #393E46;
 }
 
-.mute, .stop {
+.mute, 
+.stop {
     color: #BE3144;
 }
 
@@ -141,10 +150,6 @@ video {
     background-color: #2c2f33;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
 
 
 /* --------------- CHAT SECTION --------------- */
@@ -154,23 +159,11 @@ body {
 }
 
 .chat-window {
-    /* position: absolute; */
     position: relative;
     width: inherit;
     overflow-y: auto;
     height: 780px;
 }
-
-/* .chat-window {
-    position: relative;
-    top: 0;
-    right: 0;
-    height: 780px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-} */
 
 .chat-header {
     color: #f5f5f5;
@@ -220,7 +213,6 @@ body {
 .my-message .message, 
 .my-message .firstName {
     text-align: end;
-    /* padding-right: 10px; */
 }
 
 .new-user-joined {
@@ -245,12 +237,8 @@ body {
 
 
 
+/* ----------------- COPY TO CLIPBOARD ------------------------ */
 
-
-
-
-
-/* COPY TO CLIPBOARD */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -289,22 +277,7 @@ body {
     opacity: 1;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* -------------------- SCROLLBAR ------------------------ */
 
 ::-webkit-scrollbar {
     width: 5px;

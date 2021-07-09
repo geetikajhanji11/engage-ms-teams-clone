@@ -1,52 +1,61 @@
-// import { addParticipant, removeParticipant } from "./participants.js"
-
 const socket = io('/')
-const videoGrid = document.getElementById('video-grid')
-const peer = new Peer(undefined, {
-  path: '/peerjs',
-  host: '/',
-  port: '443'
-})
-
-let participants = []
-
-const peers = {}
-const callList = []
-const answerList = []
-
 
 console.log(ROOM_ID)
 
+// getting required elements
+const videoGrid = document.getElementById('video-grid')
+const video_section = document.getElementsByClassName("video-section")[0]
+const chat_section = document.getElementsByClassName("chat-section")[0]
+const participants_section = document.getElementsByClassName("participants-section")[0]
+const participants_div = document.getElementsByClassName("participants")[0]
+const messages = document.getElementsByClassName("messages")[0]
+const mute_unmute = document.getElementsByClassName("mute-unmute")[0]
+const play_stop = document.getElementsByClassName("play-stop")[0]
 
+// initializing variables
 const myVideo = document.createElement('video')
-let myScreenShareVideo
-myVideo.muted = true
 let myVideoStream
 let myScreenShareStream
+let isShowingChat = true
+let isShowingParticipants = false
+const peers = {}
+let participants = []
+const callList = []
+const answerList = []
 let myDetails = {
   id: '',
   firstName: '',
   lastName: '',
 }
 
-// 'stream' fired twice if both video and audio are asked
+
+
+const peer = new Peer(undefined, {
+  path: '/peerjs',
+  host: '/',
+  // port: '443'
+  port: '3000'
+})
+
+
+
+
+
+
+// getting the user's video and audio streams
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true,
 }).then(stream => {
 
-  // console.log("appending my video stream...")
   myVideoStream = stream
-  // console.log("my video stream")
-  // console.log(myVideoStream)
-
-  addVideoStream(myVideo, stream, myDetails.id)
+  myVideo.muted = true
+  addVideoStream(myVideo, myVideoStream, myDetails.id)
   addNameTag(myDetails.id)
 
+  // listens for when a new user is connected to our room
   socket.on('user-connected', userId => {
-    // console.log(`new user connected ${userId}`)
     setTimeout(() => {connectToNewUser(userId, stream)}, 1000);
-    // connectToNewUser(userId, stream)
   })
 
   peer.on('call', call => {
@@ -67,111 +76,74 @@ navigator.mediaDevices.getUserMedia({
 
 })
 
+// listens for when a user disconnects from the room, then closes peer connection
 socket.on('user-disconnected', userId => {
-  console.log(`USER DISCONNECT: ${userId}`)
   removeParticipant(userId)
   let video = document.getElementsByClassName(userId)[0].parentElement.parentElement
   video.remove()
   if (peers[userId]) {
-    console.log("closing.................")
     peers[userId].close()
   } 
 })
 
+// listens for when a connection to the PeerServer is established, then joins the user to the room
 peer.on('open', id => {
   myDetails.id = id
   myDetails.firstName = firstName
   myDetails.lastName = lastName
-  // participants.push(myDetails)
   addParticipant(myDetails, true)
   console.log(`My userId: ${id}`)
   socket.emit('join-room', ROOM_ID, id)
 })
 
-// message that shows new user connected in chat room
-const newUserJoinedRoom = data => {
-  const p = document.createElement('p')
-  p.innerHTML = `${data.firstName} ${data.lastName} just joined!`
-  p.className = "new-user-joined"
-  messages.append(p)
-  addNameTag(data.id)
-  scrollToBottom()
-}
 
-
+// connects us to the new user that joined the room
 function connectToNewUser(userId, stream) {
   console.log(`connecting to ${userId}...`)
 
-  // added this
   var conn = peer.connect(userId)
   conn.on('open', () => {
     conn.on('data', data => {
-      // console.log(data)
-      // participants.push(data)
       addParticipant(data)
-      // console.log(participants)
       newUserJoinedRoom(data)
-
+      addNameTag(data.id)
     })
     conn.send(myDetails);
   });
 
   const call = peer.call(userId, stream)
-  const video = document.createElement('video')
+  const userVideo = document.createElement('video')
 
-
+  // listens for user's stream 
   call.on('stream', userVideoStream => {
 
-    // added so that stream is fired only once
+    // checks if the userId already exists in callList, so that 'stream' event is fired only once
     if(!callList[call.peer]) {
-      // console.log(`appending ${userId} video stream...`)
-      addVideoStream(video, userVideoStream, userId)
-      // addNameTag(userId)
+      addVideoStream(userVideo, userVideoStream, userId)
       callList[call.peer] = call
     }
     
   })
 
   call.on('close', () => {
-    // video.parentElement.remove()
     console.log(`${userId}  is leaving..............`)
-    // removeParticipant(userId)
-
   })
 
   peers[userId] = call
-  console.log("PEERS")
-  console.log(peers)
 
 }
 
-
-// added this
+// listens for peer connection, then adds the required data
 peer.on('connection', conn => {
   conn.on('data', data => {
-    console.log(data);
-    // participants.push(data)
     addParticipant(data)
     addNameTag(data.id)
     conn.send(myDetails)
   });
 });
 
+// adds the video stream to the screen
 function addVideoStream(video, stream, id) {
-
-  console.log(`adding: ${id} STREAM`)
-  console.log("displaying all participants")
-  console.log(participants)
-  
-  // let obj;
-  // console.log("in loop")
-  // for(let i=0; i<participants.length; i++) {
-  //   console.log(participants[i])
-  //   if(participants[i].id == id) {
-  //     obj = participants[i]
-  //   }
-  // }
-  // console.log(obj)
 
   video.srcObject = stream
   video.addEventListener('loadedmetadata', () => {
@@ -186,7 +158,7 @@ function addVideoStream(video, stream, id) {
   video__overlay.className = "video__overlay"
   const name = document.createElement('div')
   name.className = id
-  // name.innerHTML = "test name"
+  name.innerHTML = "No Name"
   video__overlay.append(name)
 
   div.append(video__overlay)
@@ -195,8 +167,8 @@ function addVideoStream(video, stream, id) {
   
 }
 
+// adds the name tag with the video
 function addNameTag(id) {
-  console.log("------DEBUG-----------")
   let name_element = document.getElementsByClassName(id)[0]
   console.log(name_element)
   for(let i=0; i<participants.length; i++) {
@@ -209,11 +181,10 @@ function addNameTag(id) {
 }
 
 
-// ---------- Video Controls ----------
+// ------------------------- MIC MUTE/UNMUTE BUTTON -------------------------
 
-// MUTE - UNMUTE
-const mute_unmute = document.getElementsByClassName("mute-unmute")[0]
 
+// toggles the mute button
 const toggleMute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled
   if(enabled) {
@@ -225,6 +196,7 @@ const toggleMute = () => {
   }
 }
 
+// sets the unmute button
 const setUnmuteButton = () => {
   mute_unmute.classList.remove("fa-microphone-slash")
   mute_unmute.classList.add("fa-microphone")
@@ -233,6 +205,7 @@ const setUnmuteButton = () => {
   socket.emit('name-tag-removed', {roomId: ROOM_ID, userId: myDetails.id, iconClass: "fa-microphone-slash"})
 }
 
+// sets the mute button
 const setMuteButton = () => {
   mute_unmute.classList.remove("fa-microphone")
   mute_unmute.classList.add("fa-microphone-slash")
@@ -241,9 +214,11 @@ const setMuteButton = () => {
   socket.emit('name-tag-added', {roomId: ROOM_ID, userId: myDetails.id, iconClass: "fa-microphone-slash"})
 }
 
-// PLAY - STOP
-const play_stop = document.getElementsByClassName("play-stop")[0]
 
+// ------------------------- VIDEO PLAY/STOP BUTTON -------------------------
+
+
+// toggles the video button
 const toggleVideo = () => {
   let enabled = myVideoStream.getVideoTracks()[0].enabled
   if(enabled) {
@@ -255,6 +230,8 @@ const toggleVideo = () => {
   }
 }
 
+
+// sets the stop button
 const setStopButton = () => {
   play_stop.classList.add("fa-video-slash")
   play_stop.classList.remove("fa-video")
@@ -263,6 +240,8 @@ const setStopButton = () => {
   socket.emit('name-tag-added', {roomId: ROOM_ID, userId: myDetails.id, iconClass: "fa-video-slash"})
 }
 
+
+// sets the play button
 const setPlayButton = () => {
   play_stop.classList.remove("fa-video-slash")
   play_stop.classList.add("fa-video")
@@ -272,8 +251,10 @@ const setPlayButton = () => {
 }
 
 
-// ------------ ADDING ICON NEXT TO NAME TAG --------------------
 
+// ------------------------- ICONS NEXT TO NAME TAG -------------------------
+
+// adds the icon (mute/stop) next to name tag 
 const addNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
   let icon = document.createElement('i')
@@ -281,6 +262,7 @@ const addNameTagIcon = (userId, iconClass) => {
   name_tag.append(icon)
 }
 
+// removes the icon (mute/stop) next to name tag 
 const removeNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
   if(name_tag) {
@@ -288,27 +270,29 @@ const removeNameTagIcon = (userId, iconClass) => {
   }
 }
 
+// listens for when icon is added
 socket.on('user-name-tag-added', data => {
   addNameTagIcon(data.userId, data.iconClass)
 }) 
 
-
+// listens for when icon is removed
 socket.on('user-name-tag-removed', data => {
   removeNameTagIcon(data.userId, data.iconClass)
 }) 
 
 
-//  ---------- CHAT ROOM ----------
+// ------------------------- CHAT ROOM -------------------------
 
+// message that user sends
+let message = $("input")
+
+// scrolls chat to the bottom
 const scrollToBottom = () => {
   let chat_window = $(".chat-window")
   chat_window.scrollTop(chat_window.prop("scrollHeight"))
 }
 
-const messages = document.getElementsByClassName("messages")[0]
-let message = $("input")
-
-// --------------------------------------------------------------------------------------------------------------
+// returns current time
 const getTime = () => {
   let today = new Date()
   let hours = today.getHours()
@@ -318,13 +302,24 @@ const getTime = () => {
   return currentTime
 }
 
+// message that shows new user connected in chat room
+const newUserJoinedRoom = data => {
+  const p = document.createElement('p')
+  p.innerHTML = `${data.firstName} ${data.lastName} just joined!`
+  p.className = "new-user-joined"
+  messages.append(p)
+  addNameTag(data.id)
+  scrollToBottom()
+}
+
+// creates a message along with NAME of the user
 const createMessageWithName = (message, firstName, className) => {
 
   // outer div
   const div = document.createElement('div')
   div.className = className
 
-  // firstName div
+  // inner firstName div
   let firstName_div = document.createElement('div')
   firstName_div.className = "row"
 
@@ -337,7 +332,7 @@ const createMessageWithName = (message, firstName, className) => {
   dash_p.innerHTML = "==="
   
 
-  // message div
+  // inner message div
   let message_div = document.createElement('div')
   message_div.className = "row"
 
@@ -349,33 +344,39 @@ const createMessageWithName = (message, firstName, className) => {
   time_p.className = "time col-2"
   time_p.innerHTML = getTime()
 
-
+  // appening to inner divs
   firstName_div.append(firstName_p)
   firstName_div.append(dash_p)
   message_div.append(message_p)
   message_div.append(time_p)
-
   if(className == "user-message") {
     firstName_p.className += " order-last"
     message_p.className += " order-last"
   } 
   
-
-  // appending everything to main div
+  // appending everything to main outer div
   div.append(firstName_div)
   div.append(message_div)
   
   messages.append(div)
 }
 
+// creates message to be displayed in the chat room
 const createMessage = (message, firstName, className) => {
 
   let children = document.getElementsByClassName("messages")[0].children.length
+
+  // if someone has already sent a message in the chat before
   if(children != 0) {
+    
+    // get the last person who sent the message
     const latestFirstName = document.getElementsByClassName("messages")[0].lastChild.getElementsByClassName("firstName")[0]
+
+    // if the name of the last person exists
     if(typeof latestFirstName !== 'undefined') {
+
+      // message already sent by this person, so just omit name
       if(latestFirstName.innerHTML == firstName) {
-        // message already send by this person, so omit name
 
         // message div
         let message_div = document.createElement('div')
@@ -409,11 +410,7 @@ const createMessage = (message, firstName, className) => {
   }
 }
 
-// --------------------------------------------------------------------------------------------------------------
-
-
-
-// SENDING MY MESSAGE
+// sending my message
 $("html").keydown(e => {
   if(e.which == 13 && message.val().length !== 0) {
     createMessage(message.val(), myDetails.firstName, "my-message")
@@ -423,26 +420,22 @@ $("html").keydown(e => {
   }
 })
 
-// RECEIBING USER'S MESSAGE
+// receiving user's message
 socket.on('receive-message', (data) => {
   createMessage(data.message, data.firstName, "user-message")
   scrollToBottom()
 })
 
 // toggle chat room visibility
-const chat_section = document.getElementsByClassName("chat-section")[0]
-const video_section = document.getElementsByClassName("video-section")[0]
-let isShowingChat = true
-
 const toggleChat = () => {
 
   if(isShowingParticipants) {
     isShowingParticipants = false
     document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
-
   }
     
   changeSections(participants_section, chat_section, isShowingChat)
+
   if(isShowingChat) {
     document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
     isShowingChat = false
@@ -453,16 +446,13 @@ const toggleChat = () => {
 
 };
 
-// ---------- SHOW PARTICIPANTS ----------
 
-const participants_div = document.getElementsByClassName("participants")[0]
+// ------------------------- PARTICIPANTS -------------------------
 
+// adding a participant to the PARTICIPANT section
 const addParticipant = (participant, isMe = false) => {
-
-  let fullName = `${participant.firstName} ${participant.lastName}`
-  
-
   participants.push(participant)
+  let fullName = `${participant.firstName} ${participant.lastName}`
   const p = document.createElement('p')
   p.id = participant.id
   p.innerHTML = fullName
@@ -470,17 +460,9 @@ const addParticipant = (participant, isMe = false) => {
     p.innerHTML += " (You)"
   }
   participants_div.append(p)
-
-  // console.log("------DEBUG-----------")
-  // let name = document.getElementsByClassName(participant.id)[0]
-  // console.log(name)
-  // name.innerHTML = `${participant.firstName} ${participant.lastName}`
-
-  
-
-
 }
 
+// removing the given participant from the PARTICIPANT section
 const removeParticipant = id => {
   const participant = document.getElementById(id)
   if(participant) {
@@ -488,64 +470,49 @@ const removeParticipant = id => {
   }
 }
 
-
-// toggle participants part visibility
-const participants_section = document.getElementsByClassName("participants-section")[0]
-let isShowingParticipants = false
-
+// toggle PARTICIPANT section visibility (initially: hidden)
 const toggleParticipants = () => {
-
-  console.log("toggling participants....")
-
   if(isShowingChat) {
     isShowingChat = false
     document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
-
-    chat_section.style.display = "none"
   }
 
   changeSections(chat_section, participants_section, isShowingParticipants)
   
-  
-  
-
   if(!isShowingParticipants) {
     isShowingParticipants = true
     document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.add("show-chat")
-
   } else {
     isShowingParticipants = false
     document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
-
   }
 
 }
 
-const changeSections = (sectionOne, sectionTwo, isShowingTwo) => {
 
+// ------------------------- CHANGE SECTIONS -------------------------
+
+// To switch between two sections (From Chat to Participants and vice-verse)
+const changeSections = (sectionOne, sectionTwo, isShowingTwo) => {
   if(!isShowingTwo) {
-    if(sectionOne.style.display == "block") {
-      sectionOne.style.display = "none"
-    } else {
+    if(sectionOne.style.display == "none" || sectionOne.style.display == "") {
       video_section.classList.remove("col-12")
       video_section.classList.add("col-9")
     }
     sectionTwo.style.display = "block"
+    sectionOne.style.display = "none"
   }
-
   else {
     video_section.classList.remove("col-9")
     video_section.classList.add("col-12")
     sectionTwo.style.display = "none"
   }
-  
-
 }
 
 
 
 
-// ----------------- COPY ROOM ID -------------------
+// ------------------------- COPY ROOM ID -------------------------
 function myFunction() {
   var copyText = document.getElementById("myInput");
   copyText.select();
@@ -566,9 +533,7 @@ function outFunc() {
 
 
 
-// ----------------- SCREEN SHARE -------------------
-
-
+// ------------------------- SCREEN SHARE -------------------------
 let displayMediaOptions = {
   video: true,
   audio: true,
