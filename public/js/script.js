@@ -78,6 +78,14 @@ navigator.mediaDevices.getUserMedia({
 
 // listens for when a user disconnects from the room, then closes peer connection
 socket.on('user-disconnected', userId => {
+
+  for(let i=0; i<participants.length; i++) {
+    if(participants[i].id == userId) {
+      userLeftRoom(participants[i])
+      break
+    }
+  }
+
   removeParticipant(userId)
   let video = document.getElementsByClassName(userId)[0].parentElement.parentElement
   video.remove()
@@ -265,7 +273,7 @@ const addNameTagIcon = (userId, iconClass) => {
 // removes the icon (mute/stop) next to name tag 
 const removeNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
-  if(name_tag) {
+  if(typeof name_tag.getElementsByClassName(iconClass)[0] !== "undefined") {
     name_tag.getElementsByClassName(iconClass)[0].remove()
   }
 }
@@ -309,6 +317,14 @@ const newUserJoinedRoom = data => {
   p.className = "new-user-joined"
   messages.append(p)
   addNameTag(data.id)
+  scrollToBottom()
+}
+
+const userLeftRoom = data => {
+  const p = document.createElement('p')
+  p.innerHTML = `${data.firstName} ${data.lastName} just left!`
+  p.className = "new-user-joined"
+  messages.append(p)
   scrollToBottom()
 }
 
