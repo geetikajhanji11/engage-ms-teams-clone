@@ -240,7 +240,7 @@ video {
 /* ----------------- COPY TO CLIPBOARD ------------------------ */
 
 
-.room-id:hover .tooltiptext {
+.room-id-copy:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }

@@ -520,7 +520,6 @@ function copyToClipboard() {
   tempInput.select();
   document.execCommand("copy");
   document.body.removeChild(tempInput);
-  // alert("Copied ROOM ID: " + tempInput.value);
   var tooltip = document.getElementsByClassName("tooltiptext")[0]
   tooltip.innerHTML = `Copied: ${ROOM_ID}`;
 

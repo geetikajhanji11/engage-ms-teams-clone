@@ -9,16 +9,6 @@
     const ROOM_ID='<%=obj.roomId%>'
     const firstName  ='<%=obj.firstName%>'
     const lastName = "<%=obj.lastName%>"
-    // let chat_room_id
-
-    // const chatRoomId = () => {
-    //   chat_room_id = ROOM_ID
-    //   chat_room_id = chat_room_id.replace("-vid", "")
-    //   let form_room_id = document.getElementById("room_id")
-    //   form_room_id.value = chat_room_id
-    //   console.log(form_room_id)
-    // }
-    // chatRoomId()
   </script>
   
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
@@ -46,7 +36,7 @@
 <body>
 
 
-  <input id="room-id" type="hidden" value="<%=obj.roomId%>">
+
 
 
   <section>
@@ -72,7 +62,7 @@
         <div class="video-controls-buttons row">
 
           <!-- copy room ID -->
-            <div onclick="copyToClipboard()" onmouseout="outFunc()" class="room-id copy-roomid">
+            <div onclick="copyToClipboard()" onmouseout="outFunc()" class="room-id-copy copy-roomid">
               <span class="tooltiptext">Copy to clipboard</span>
               <span>Copy RoomID</span>
               <i class="fas fa-copy"></i>
