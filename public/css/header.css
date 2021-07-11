@@ -1,0 +1,26 @@
+.home {
+    background-color: #343a40;
+}
+
+.navbar-brand img {
+    width: 70px;
+}
+.nav-item {
+    padding: 2%;
+    font-size: 1rem;
+    width: 270px;
+}
+
+.other-item {
+    width: 130px;
+}
+
+.other-item a {
+    color: dimgray !important;
+}
+
+
+#navbarNav a {
+    color: darkgray;
+    font-size: 1.8rem;
+}

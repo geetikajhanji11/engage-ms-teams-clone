@@ -26,8 +26,7 @@ let data = {}
 
 // home
 app.get('/', (req, res) => {
-  const roomId = uuidV4()
-  res.render('home', {roomId})
+  res.render('home')
 })
 app.post('/', (req, res) => {
   let roomId = req.body.roomId
@@ -43,18 +42,17 @@ app.post('/', (req, res) => {
     firstName: firstName,
     lastName: lastName
   }
-  // res.redirect(`/${roomId}`)
   res.render("room", {obj: data})
 
 }, )
 
-// room
-app.get('/:room', (req, res) => {
-  res.render('room', {obj: data})
+
+app.get("/end", (req, res) => {
+  res.render("end")
 })
 
-app.get("/meeting/end", (req, res) => {
-  res.render("end")
+app.get("/about", (req, res) => {
+  res.render("about")
 })
 
 
