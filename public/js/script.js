@@ -1,7 +1,5 @@
 const socket = io('/')
 
-console.log(ROOM_ID)
-
 // getting required elements
 const videoGrid = document.getElementById('video-grid')
 const video_section = document.getElementsByClassName("video-section")[0]
@@ -30,19 +28,12 @@ let myDetails = {
   lastName: '',
 }
 
-
-
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   // port: '443'
   port: '3000'
 })
-
-
-
-
-
 
 // getting the user's video and audio streams
 navigator.mediaDevices.getUserMedia({
@@ -102,15 +93,12 @@ peer.on('open', id => {
   myDetails.firstName = firstName
   myDetails.lastName = lastName
   addParticipant(myDetails, true)
-  console.log(`My userId: ${id}`)
   socket.emit('join-room', ROOM_ID, id)
 })
 
 
 // connects us to the new user that joined the room
 function connectToNewUser(userId, stream) {
-  console.log(`connecting to ${userId}...`)
-
   var conn = peer.connect(userId)
   conn.on('open', () => {
     conn.on('data', data => {
@@ -134,13 +122,7 @@ function connectToNewUser(userId, stream) {
     }
     
   })
-
-  call.on('close', () => {
-    console.log(`${userId}  is leaving..............`)
-  })
-
   peers[userId] = call
-
 }
 
 // listens for peer connection, then adds the required data
@@ -182,7 +164,6 @@ function addVideoStream(video, stream, id) {
 // adds the name tag with the video
 function addNameTag(id) {
   let name_element = document.getElementsByClassName(id)[0]
-  console.log(name_element)
   for(let i=0; i<participants.length; i++) {
     if(participants[i].id == id) {
       name_element.innerHTML = `${participants[i].firstName} ${participants[i].lastName}`
@@ -354,7 +335,7 @@ const newUserJoinedRoom = data => {
 const userLeftRoom = data => {
   const p = document.createElement('p')
   p.innerHTML = `${data.firstName} ${data.lastName} just left!`
-  p.className = "new-user-joined"
+  p.className = "user-left"
   messages.append(p)
   scrollToBottom()
 }

@@ -1,0 +1,13 @@
+/* ------------------------ PARTICIPANTS ------------------------ */
+
+.participants-section {
+    display: none;
+    background-color: currentColor;
+}
+
+.participants p {
+    color: #5F939A;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+}

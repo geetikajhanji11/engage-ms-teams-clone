@@ -1,0 +1,93 @@
+
+/* --------------- CHAT SECTION --------------- */
+
+.chat-section {
+    background-color: #2c2f33;
+    display: block;
+}
+
+.chat-window {
+    position: relative;
+    width: inherit;
+    overflow-y: auto;
+    height: 780px;
+}
+
+/* --------------- CHAT HEADER --------------- */
+
+.chat-header {
+    color: #f5f5f5;
+    text-align: center;
+    padding: 2%;
+}
+
+.chat-header h6 {
+    font-size: 2rem;
+    color: gray;
+    font-weight: 900;
+}
+
+/* --------------- MESSAGES --------------- */
+
+.message-input {
+    position: absolute;
+    bottom: 5%;
+    width: 92%;
+    text-align: center;
+}
+
+.message-input input {
+    width: auto;
+    background-color: transparent;
+    border: none;
+    color: #f5f5f5;
+    width: inherit;
+    padding: 0% 3%;
+    font-size: large;
+}
+
+.message-input input:focus {
+    outline: none;
+}
+
+.my-message .message, 
+.my-message .firstName {
+    text-align: end;
+}
+
+.messages p {
+    color: #f5f5f5;
+}
+
+/* --------------- TIME --------------- */
+
+.time {
+    color: dimgray !important;
+}
+
+
+/* --------------- FIRST NAME & ICON --------------- */
+
+.firstName {
+    color: #5F939A !important;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.chat-name-icon {
+    color: darkgrey;
+    font-size: 1.5rem;
+    margin-top: 3px;
+    padding: 0;
+    padding-left: 5% !important;
+}
+
+/* --------------- USER JOINED/LEFT MESSAGE --------------- */
+
+.new-user-joined,
+.user-left {
+    color: dimgray !important;
+    text-align: center;
+    padding: 5px;
+}
+

@@ -5,185 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  
+  <!-- Favicon -->
   <link href="assets/ms_favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+  <!-- Scripts -->
   <script>
     const ROOM_ID='<%=obj.roomId%>'
     const firstName  ='<%=obj.firstName%>'
     const lastName = "<%=obj.lastName%>"
   </script>
-  
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
   <script src="/socket.io/socket.io.js" defer></script>
-
   <script src="js/script.js" defer></script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/room.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-  <title>Room</title>
-
+  <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/2fe739a957.js" crossorigin="anonymous"></script>
 
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/room/buttons.css">
+  <link rel="stylesheet" href="css/room/chat.css">
+  <link rel="stylesheet" href="css/room/participants.css">
+  <link rel="stylesheet" href="css/room/room.css">
+  <link rel="stylesheet" href="css/room/video.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+  <title>Room</title>
 
 </head>
 <body>
 
-
-
-
-
   <section>
-    
-  <div class="container-fluid">
-
-  
-
-  <div class="room-container row">
-
-
-    <!-- ========= VIDEO ========= -->
-    <div class="video-section col-9">
-
-      <!-- All the videos -->
-      <div class="video-screen">
-        <div id="video-grid"></div>
-      </div>
       
-      <!-- Video controls -->
-      <div class="video-controls">
+    <div class="container-fluid">
 
-        <div class="video-controls-buttons row">
+      <div class="room-container row">
 
-          <!-- copy room ID -->
-            <div onclick="copyToClipboard()" onmouseout="outFunc()" class="room-id-copy copy-roomid">
-              <span class="tooltiptext">Copy to clipboard</span>
-              <span>Copy RoomID</span>
-              <i class="fas fa-copy"></i>
-            </div>
-          
+        <!-- ========= VIDEO SECTION ========= -->
+        <div class="video-section col-9">
 
-          <!-- mute -->
-          <div class="bottom-btn">
-            <div onclick="toggleMute()">
-              <i class="mute-unmute fas fa-microphone"></i>
-            </div>
+          <!-- All the videos -->
+          <div class="video-screen">
+            <div id="video-grid"></div>
           </div>
           
+          <!-- Video controls -->
+          <div class="video-controls">
 
-          <!-- stop video -->
-          <div class="bottom-btn">
-            <div onclick="toggleVideo()">
-              <i class="play-stop fas fa-video"></i>
+            <div class="video-controls-buttons row">
+
+              <!-- copy room ID -->
+                <div onclick="copyToClipboard()" onmouseout="outFunc()" class="room-id-copy copy-roomid">
+                  <span class="tooltiptext">Copy to clipboard</span>
+                  <span>Copy RoomID</span>
+                  <i class="fas fa-copy"></i>
+                </div>
+              
+
+              <!-- mute -->
+              <div class="bottom-btn">
+                <div onclick="toggleMute()">
+                  <i class="mute-unmute fas fa-microphone"></i>
+                </div>
+              </div>
+              
+
+              <!-- stop video -->
+              <div class="bottom-btn">
+                <div onclick="toggleVideo()">
+                  <i class="play-stop fas fa-video"></i>
+                </div>
+              </div>
+
+              <!-- raise hand -->
+              <div class="bottom-btn">
+                <div onclick="raiseHand()">
+                  <i class="hand-raise fas fa-hand-paper"></i>
+                </div>
+              </div>
+
+              <!-- chat -->
+              <div class="bottom-btn">
+                <div class="show-chat" onclick="toggleChat()">
+                  <i class="fas fa-comment"></i>
+                </div>
+              </div>
+
+              <!-- show participants -->
+              <div class="bottom-btn">
+                <div onclick="toggleParticipants()">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              
+              <!-- leave meeting -->
+              <div class="leave-meeting">
+                  <a href="/end">
+                    <span>Leave Meeting </span>
+                    <i class="fas fa-phone"></i>
+                  </a>
+              </div>
+
             </div>
+
           </div>
 
-          <!-- raise hand -->
-          <div class="bottom-btn">
-            <div onclick="raiseHand()">
-              <i class="hand-raise fas fa-hand-paper"></i>
-            </div>
-          </div>
-
-          <!-- chat -->
-          <div class="bottom-btn">
-            <div class="show-chat" onclick="toggleChat()">
-              <i class="fas fa-comment"></i>
-            </div>
-          </div>
-
-          <!-- show participants -->
-          <div class="bottom-btn">
-            <div onclick="toggleParticipants()">
-              <i class="fas fa-users"></i>
-            </div>
-          </div>
-          
-
-          <!-- leave meeting -->
-          <div class="leave-meeting">
-              <a href="/end">
-                <span>Leave Meeting </span>
-                <i class="fas fa-phone"></i>
-              </a>
-          </div>
-
-          <!-- <form name="room-input" action="/chate" method="POST">
-        
-              <input name="firstName" type="hidden" value='<%=obj.firstName%>'>
-              <input name="lastName" type="hidden" value='<%=obj.lastName%>'>
-            <input id="room_id" type="hidden" name="roomId">
-            <input type="submit" onclick="chatRoomId()">
-
-    
-          </form> -->
         </div>
 
-        
+        <!-- ========= CHAT SECTION ========= -->
+        <div class="chat-section col-3">
 
-      </div>
-    </div>
+          <div class="chat-header">
+            <h6>Chat</h6>
+            <hr>
+          </div>
 
+          <div class="chat-window">
+            <div class="messages container-fluid">
+            </div>
+          </div>
 
+          <div class="message-input">
+            <input id="message" type="text" placeholder="Type message here...">
+          </div>
 
-
-
-
-    <!-- ========= CHAT ========= -->
-    <div class="chat-section col-3">
-
-      <div class="chat-header">
-        <h6>Chat</h6>
-        <hr>
-      </div>
-
-      <div class="chat-window">
-        <div class="messages container-fluid">
         </div>
-      </div>
 
-      <div class="message-input">
-        <input id="message" type="text" placeholder="Type message here...">
+        <!-- ========= PARTICIPANTS SECTION ========= -->
+
+        <div class="participants-section col-3">
+          <div class="chat-header">
+            <h6>Participants</h6>
+            <hr>
+          </div>
+          <div class="participants">
+          </div>
+        </div>
+
       </div>
 
     </div>
 
-    
-    <!-- ========= PARTICIPANTS ========= -->
-
-    <div class="participants-section col-3">
-
-      <div class="chat-header">
-        <h6>Participants</h6>
-        <hr>
-      </div>
-
-      <div class="participants">
-
-      </div>
-    </div>
-
-
-
-
-
-
-
-  </div>
-
-
-</div>
-
-</section>
+  </section>
 
 </body>
 </html>

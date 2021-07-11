@@ -3,73 +3,60 @@
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/home.css">
 
+  <div class="heading-container row">
+
     <!-- HEADING -->
-    <!-- <div class="container"> -->
+    <div class="heading col-6">
+        <h1>Connect with anyone, anywhere.</h1>
+        <h2>Meet your friends and family face to face.</h2>
 
+        <!-- =========== FORM =========== -->
+        <form name="room-input" action="/" method="POST">
     
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input name="firstName" type="text" class="form-control" id="first-name" placeholder="First Name...">
+          </div>
+  
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input name="lastName" type="text" class="form-control" id="last-name" placeholder="Last Name...">
+          </div>
 
-    <div class="heading-container row">
-
-        <div class="heading col-6">
-            <h1>Connect with anyone, anywhere.</h1>
-            <h2>Meet your friends and family face to face.</h2>
-            <!-- <hr> -->
-
-
-            <form name="room-input" action="/" method="POST">
-        
-              <div class="form-group">
-                <label for="first-name">First Name</label>
-                <input name="firstName" type="text" class="form-control" id="first-name" placeholder="First Name...">
+          <!-- Buttons -->
+          <div class="container-fluid">
+            <div class="input-row row">
+              <div class="col-4">
+                <p class="btn-label">Create and enter a brand new room.</p>
+                <button type="submit" class="btn btn-secondary btn-md">Creat New Room</button>
               </div>
-      
-              <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <input name="lastName" type="text" class="form-control" id="last-name" placeholder="Last Name...">
+              <div class="col-4">
+                <p class="or">OR</p>
               </div>
-
-
-      
-              
-              <div class="container-fluid">
-                <div class="input-row row">
-                  <div class="col-4">
-                    <p class="btn-label">Create and enter a brand new room.</p>
-                    <button type="submit" class="btn btn-secondary btn-md">Creat New Room</button>
-                  </div>
-                  <div class="col-4">
-                    <p class="or">OR</p>
-
-                  </div>
-                  <div class="col-4 container-fluid">
-                    <p class="btn-label">Enter the RoomID of existing room.</p>
-                    <div class="type-roomId-input row align-items-center text-center">
-                      <input class="row-btn form-control roomId-input" type="text" placeholder="Type RoomID..." name="roomId">
-                      <input class="row-btn btn btn-secondary btn-md" type="submit" value="Join">
-                    </div>
-                    
-                  </div>
+              <div class="col-4 container-fluid">
+                <p class="btn-label">Enter the RoomID of existing room.</p>
+                <div class="type-roomId-input row align-items-center text-center">
+                  <input class="row-btn form-control roomId-input" type="text" placeholder="Type RoomID..." name="roomId">
+                  <input class="row-btn btn btn-secondary btn-md" type="submit" value="Join">
                 </div>
               </div>
-              
+            </div>
+          </div>
 
-      
-            </form>
-
-        </div>
-
-        <div class="heading-img col-6">
-            <img src="assets/people.jpg" alt="people">
-        </div>
+        </form>
 
     </div>
 
-
-
+    <!-- Image -->
+    <div class="heading-img col-6">
+        <img src="assets/people.jpg" alt="people">
+    </div>
 
   </div>
 
+</div>
 </section>
-
 </body>
 </html>

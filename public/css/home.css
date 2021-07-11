@@ -1,3 +1,4 @@
+/* Headings */
 
 .heading {
     align-self: center;
@@ -32,12 +33,13 @@
 
 }
 
+/* Form Section */
+
 form {
     padding-top: 30px;
 }
 
 label {
-    /* color: darkgray; */
     display: inline-block;
     margin-bottom: .5rem;
     color: #5F939A;
@@ -75,6 +77,8 @@ label {
 .row-btn {
     margin: 2px;
 }
+
+/* Button Settings */
 
 .btn-secondary {
     background-color: #3282B8 !important;

@@ -1,3 +1,4 @@
+/* Outer body */
 .home {
     padding: 0;
     background-color: #222831;
@@ -9,6 +10,7 @@
     height: 90vh;
 }
 
+/* General */
 .project-details h1,
 .my-details h1 {
     color: #5F939A;
@@ -20,14 +22,6 @@
     font-size: 1.5rem;
 }
 
-.project-details .photo {
-    text-align: end;
-}
-
-.me {
-    text-align: end;
-}
-
 .photo {
     margin: auto;
 }
@@ -36,10 +30,18 @@
     width: 80%;
     border-radius: 20px;
 }
+
+/* Project Details */
 .project-details .photo {
     text-align: end;
 }
 
+.project-details .photo,
+.me {
+    text-align: end;
+}
+
+/* My Details */
 .my-details img {
     width: 60% !important;
 }
