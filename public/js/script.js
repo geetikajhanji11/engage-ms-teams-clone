@@ -11,6 +11,7 @@ const participants_div = document.getElementsByClassName("participants")[0]
 const messages = document.getElementsByClassName("messages")[0]
 const mute_unmute = document.getElementsByClassName("mute-unmute")[0]
 const play_stop = document.getElementsByClassName("play-stop")[0]
+const hand_raise = document.getElementsByClassName("hand-raise")[0]
 
 // initializing variables
 const myVideo = document.createElement('video')
@@ -18,6 +19,7 @@ let myVideoStream
 let myScreenShareStream
 let isShowingChat = true
 let isShowingParticipants = false
+let isHandRaised = false
 const peers = {}
 let participants = []
 const callList = []
@@ -172,6 +174,8 @@ function addVideoStream(video, stream, id) {
   div.append(video__overlay)
 
   videoGrid.append(div)
+
+  Dish()
   
 }
 
@@ -181,10 +185,12 @@ function addNameTag(id) {
   console.log(name_element)
   for(let i=0; i<participants.length; i++) {
     if(participants[i].id == id) {
-      console.log("DONE")
       name_element.innerHTML = `${participants[i].firstName} ${participants[i].lastName}`
       break
     }
+  }
+  if(id == myDetails.id) {
+    name_element.innerHTML += " (You)"
   }
 }
 
@@ -259,6 +265,24 @@ const setPlayButton = () => {
 }
 
 
+// ------------------------- RAISE HAND -------------------------
+
+// toggles the raise hand button
+const raiseHand = () => {
+  if(!isHandRaised) {
+    isHandRaised = true
+    hand_raise.classList.add("raised")
+    addNameTagIcon(myDetails.id, "fa-hand-paper")
+    socket.emit('name-tag-added', {roomId: ROOM_ID, userId: myDetails.id, iconClass: "fa-hand-paper"})
+  } else {
+    isHandRaised = false
+    hand_raise.classList.remove("raised")
+    removeNameTagIcon(myDetails.id, "fa-hand-paper")
+    socket.emit('name-tag-removed', {roomId: ROOM_ID, userId: myDetails.id, iconClass: "fa-hand-paper"})
+  }
+  
+}
+
 
 // ------------------------- ICONS NEXT TO NAME TAG -------------------------
 
@@ -267,6 +291,12 @@ const addNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
   let icon = document.createElement('i')
   icon.className = `name-tag-icon fas ${iconClass}`
+
+  if(iconClass == "fa-hand-paper") {
+    icon.classList.add("raised")
+  } else if(iconClass == "fa-microphone-slash" || iconClass == "fa-video-slash") {
+    icon.classList.add("mute")
+  }
   name_tag.append(icon)
 }
 
@@ -320,6 +350,7 @@ const newUserJoinedRoom = data => {
   scrollToBottom()
 }
 
+// message that shows user disconnected in chat room
 const userLeftRoom = data => {
   const p = document.createElement('p')
   p.innerHTML = `${data.firstName} ${data.lastName} just left!`
@@ -447,16 +478,16 @@ const toggleChat = () => {
 
   if(isShowingParticipants) {
     isShowingParticipants = false
-    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
+    document.getElementsByClassName("bottom-btn")[4].getElementsByTagName("div")[0].classList.remove("show-chat")
   }
     
   changeSections(participants_section, chat_section, isShowingChat)
 
   if(isShowingChat) {
-    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
     isShowingChat = false
   } else {
-    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.add("show-chat")
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.add("show-chat")
     isShowingChat = true
   }
 
@@ -490,17 +521,17 @@ const removeParticipant = id => {
 const toggleParticipants = () => {
   if(isShowingChat) {
     isShowingChat = false
-    document.getElementsByClassName("bottom-btn")[2].getElementsByTagName("div")[0].classList.remove("show-chat")
+    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
   }
 
   changeSections(chat_section, participants_section, isShowingParticipants)
   
   if(!isShowingParticipants) {
     isShowingParticipants = true
-    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.add("show-chat")
+    document.getElementsByClassName("bottom-btn")[4].getElementsByTagName("div")[0].classList.add("show-chat")
   } else {
     isShowingParticipants = false
-    document.getElementsByClassName("bottom-btn")[3].getElementsByTagName("div")[0].classList.remove("show-chat")
+    document.getElementsByClassName("bottom-btn")[4].getElementsByTagName("div")[0].classList.remove("show-chat")
   }
 
 }
@@ -551,46 +582,68 @@ function outFunc() {
 
 
 
-// ------------------------- SCREEN SHARE -------------------------
-let displayMediaOptions = {
-  video: true,
-  audio: true,
-}
-let isSharing = false
 
-const screenShare = () => {
-  if(isSharing) {
-    stopScreenShare()
-  } else {
-    startScreenShare()
+
+
+
+
+
+// Area:
+function Area(Increment, Count, Width, Height, Margin = 10) {
+  let i = w = 0;
+  let h = Increment * 0.75 + (Margin * 2);
+  while (i < (Count)) {
+      if ((w + Increment) > Width) {
+          w = 0;
+          h = h + (Increment * 0.75) + (Margin * 2);
+      }
+      w = w + Increment + (Margin * 2);
+      i++;
   }
+  if (h > Height) return false;
+  else return Increment;
 }
+// Dish:
+function Dish() {
 
-const startScreenShare = async () => {
+  console.log("dishing")
 
-  myScreenShareStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
-  myScreenShareVideo = document.createElement('video')
-  addVideoStream(myScreenShareVideo, myScreenShareStream)
-  console.log("--- comparing myVideoStream and myScreenShareStream ----")
-  console.log(myVideoStream)
-  console.log(myScreenShareStream)
-  participants.forEach(participant => peer.call(participant.id, myScreenShareStream))
-  isSharing = true
-}
-
-const stopScreenShare = async () => {
-  try {
-    parent_div = myScreenShareVideo.parentElement
-    parent_div.remove()
+  // variables:
+      let Margin = 2;
+      let Scenary = document.getElementById('video-grid');
+      let Width = Scenary.offsetWidth - (Margin * 2);
+      let Height = Scenary.offsetHeight - (Margin * 2);
+      let Cameras = document.getElementsByClassName('video-container');
+      let max = 0;
   
-    isSharing = false
-  } catch(error) {
-    console.log(error)
+  // loop (i recommend you optimize this)
+      let i = 1;
+      while (i < 5000) {
+          let w = Area(i, Cameras.length, Width, Height, Margin);
+          if (w === false) {
+              max =  i - 1;
+              break;
+          }
+          i++;
+      }
+  
+  // set styles
+      max = max - (Margin * 2);
+      setWidth(max, Margin);
+}
+
+// Set Width and Margin 
+function setWidth(width, margin) {
+  let Cameras = document.getElementsByClassName('video-container');
+  for (var s = 0; s < Cameras.length; s++) {
+      Cameras[s].style.width = width + "px";
+      Cameras[s].style.margin = margin + "px";
+      Cameras[s].style.height = (width * 0.75) + "px";
   }
 }
 
-
-
-
-
-
+// Load and Resize Event
+window.addEventListener("load", function (event) {
+  Dish();
+  window.onresize = Dish;
+}, false);

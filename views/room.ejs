@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  
+  <link href="assets/ms_favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
   <script>
     const ROOM_ID='<%=obj.roomId%>'
     const firstName  ='<%=obj.firstName%>'
@@ -83,7 +86,13 @@
               <i class="play-stop fas fa-video"></i>
             </div>
           </div>
-          
+
+          <!-- raise hand -->
+          <div class="bottom-btn">
+            <div onclick="raiseHand()">
+              <i class="hand-raise fas fa-hand-paper"></i>
+            </div>
+          </div>
 
           <!-- chat -->
           <div class="bottom-btn">
@@ -91,15 +100,6 @@
               <i class="fas fa-comment"></i>
             </div>
           </div>
-          
-
-          <!-- screen share -->
-          <!-- <div class="bottom-btn">
-            <div onclick="screenShare()">
-              <i class="fas fa-share-square"></i>
-            </div>
-          </div> -->
-          
 
           <!-- show participants -->
           <div class="bottom-btn">
