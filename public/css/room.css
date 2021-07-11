@@ -175,15 +175,11 @@ video {
     color: #f5f5f5;
 }
 
-.chat-section {
-    background-color: #2c2f33;
-}
-
-
 
 /* --------------- CHAT SECTION --------------- */
 
 .chat-section {
+    background-color: #2c2f33;
     display: block;
 }
 
@@ -201,7 +197,10 @@ video {
 }
 
 .chat-header h6 {
-    font-size: 20px;
+    /* font-size: 20px; */
+    font-size: 2rem;
+    color: gray;
+    font-weight: 900;
 }
 
 .message-input {
@@ -247,13 +246,20 @@ video {
 .new-user-joined {
     color: dimgray !important;
     text-align: center;
-    padding: 20px;
+    padding: 5px;
 }
 
 .name-tag-icon {
     margin: 0px 5px;
 }
 
+.chat-name-icon {
+    color: darkgrey;
+    font-size: 1.5rem;
+    margin-top: 3px;
+    padding: 0;
+    padding-left: 5% !important;
+}
 
 /* ----------------- PARTICIPANTS ------------------------ */
 .participants-section {

@@ -374,10 +374,8 @@ const createMessageWithName = (message, firstName, className) => {
   firstName_p.className = "firstName col-10"
   firstName_p.innerHTML = firstName
 
-  let dash_p = document.createElement('p')
-  dash_p.className = "col-2"
-  dash_p.innerHTML = "==="
-  
+  const i = document.createElement("i")
+  i.className = "col-2 fas fa-user-circle chat-name-icon"
 
   // inner message div
   let message_div = document.createElement('div')
@@ -393,7 +391,7 @@ const createMessageWithName = (message, firstName, className) => {
 
   // appening to inner divs
   firstName_div.append(firstName_p)
-  firstName_div.append(dash_p)
+  firstName_div.append(i)
   message_div.append(message_p)
   message_div.append(time_p)
   if(className == "user-message") {
@@ -557,8 +555,6 @@ const changeSections = (sectionOne, sectionTwo, isShowingTwo) => {
 }
 
 
-
-
 // ------------------------- COPY ROOM ID -------------------------
 function copyToClipboard() {
   var tempInput = document.createElement("input");
@@ -578,24 +574,16 @@ function outFunc() {
 }
 
 
+// ------------------------- VIDEO GRID ALIGNMENT -------------------------
 
-
-
-
-
-
-
-
-
-
-// Area:
+// Area
 function Area(Increment, Count, Width, Height, Margin = 10) {
   let i = w = 0;
   let h = Increment * 0.75 + (Margin * 2);
   while (i < (Count)) {
       if ((w + Increment) > Width) {
-          w = 0;
-          h = h + (Increment * 0.75) + (Margin * 2);
+        w = 0;
+        h = h + (Increment * 0.75) + (Margin * 2);
       }
       w = w + Increment + (Margin * 2);
       i++;
@@ -603,42 +591,40 @@ function Area(Increment, Count, Width, Height, Margin = 10) {
   if (h > Height) return false;
   else return Increment;
 }
+
 // Dish:
 function Dish() {
 
-  console.log("dishing")
-
   // variables:
-      let Margin = 2;
-      let Scenary = document.getElementById('video-grid');
-      let Width = Scenary.offsetWidth - (Margin * 2);
-      let Height = Scenary.offsetHeight - (Margin * 2);
-      let Cameras = document.getElementsByClassName('video-container');
-      let max = 0;
+  let Margin = 2;
+  let Scenary = document.getElementById('video-grid');
+  let Width = Scenary.offsetWidth - (Margin * 2);
+  let Height = Scenary.offsetHeight - (Margin * 2);
+  let Cameras = document.getElementsByClassName('video-container');
+  let max = 0;
   
-  // loop (i recommend you optimize this)
-      let i = 1;
-      while (i < 5000) {
-          let w = Area(i, Cameras.length, Width, Height, Margin);
-          if (w === false) {
-              max =  i - 1;
-              break;
-          }
-          i++;
-      }
+  let i = 1;
+  while (i < 5000) {
+    let w = Area(i, Cameras.length, Width, Height, Margin);
+    if (w === false) {
+      max =  i - 1;
+      break;
+    }
+    i++;
+  }
   
   // set styles
-      max = max - (Margin * 2);
-      setWidth(max, Margin);
+  max = max - (Margin * 2);
+  setWidth(max, Margin);
 }
 
 // Set Width and Margin 
 function setWidth(width, margin) {
   let Cameras = document.getElementsByClassName('video-container');
   for (var s = 0; s < Cameras.length; s++) {
-      Cameras[s].style.width = width + "px";
-      Cameras[s].style.margin = margin + "px";
-      Cameras[s].style.height = (width * 0.75) + "px";
+    Cameras[s].style.width = width + "px";
+    Cameras[s].style.margin = margin + "px";
+    Cameras[s].style.height = (width * 0.75) + "px";
   }
 }
 
