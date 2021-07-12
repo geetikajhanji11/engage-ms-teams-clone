@@ -46,40 +46,40 @@ app.post('/', (req, res) => {
 
 }, )
 
-
+// end 
 app.get("/end", (req, res) => {
   res.render("end")
 })
 
+// about 
 app.get("/about", (req, res) => {
   res.render("about")
 })
 
-
-
-
-
-
-
 // ----------- socket io connection -------------
 io.on('connection', socket => {
+
+  // listens for when a user joins a room
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
     socket.broadcast.to(roomId).emit('user-connected', userId)
 
+    //  listens for when a user is disconnected
     socket.on('disconnect', () => {
       socket.broadcast.to(roomId).emit('user-disconnected', userId)
     })
 
+    // listens for when a user sends a message
     socket.on('send-message', (data) => {
-      // console.log("senind message")
       socket.broadcast.to(data.roomId).emit('receive-message', {message: data.message, firstName: data.firstName})
     })
 
+    // listens for when a name tag is to be added
     socket.on('name-tag-added', data => {
       socket.broadcast.to(data.roomId).emit('user-name-tag-added', {userId: data.userId, iconClass: data.iconClass})
     })
 
+    // listens for when a name tag is to be removed
     socket.on('name-tag-removed', data => {
       socket.broadcast.to(data.roomId).emit('user-name-tag-removed', {userId: data.userId, iconClass: data.iconClass})
     })

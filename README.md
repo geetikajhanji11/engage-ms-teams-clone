@@ -97,13 +97,29 @@ First, you need to download and install node.js and npm.
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+## Walkthrough
 
 
+* Home page. User enters their first name and last name.
+![home-page](public/assets/home.PNG)
+
+* Two people connected in a unique room.
+![two-participants](public/assets/two.PNG)
+
+* Three (or more) people can be connected in a unique room.
+![three-participants](public/assets/three.PNG)
+
+* List of all current participants on the right side.
+![all-participants](public/assets/participants.PNG)
+
+* Chatroom on the right side.
+![chat-feature](public/assets/chat.PNG)
+
+* Raise hand feature.
+![raise-hand-feature](public/assets/raise.PNG)
+
+* Page rendered after user pressed Leave Meeting button.
+![end-page](public/assets/end.PNG)
 
 <!-- CONTACT -->
 ## Contact

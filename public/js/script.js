@@ -31,8 +31,7 @@ let myDetails = {
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  // port: '443'
-  port: '3000'
+  port: '443'
 })
 
 // getting the user's video and audio streams
@@ -470,6 +469,8 @@ const toggleChat = () => {
     isShowingChat = true
   }
 
+  Dish()
+
 };
 
 
@@ -512,6 +513,8 @@ const toggleParticipants = () => {
     isShowingParticipants = false
     document.getElementsByClassName("bottom-btn")[4].getElementsByTagName("div")[0].classList.remove("show-chat")
   }
+
+  Dish()
 
 }
 
