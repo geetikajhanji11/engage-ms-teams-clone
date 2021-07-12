@@ -130,7 +130,7 @@ function connectToNewUser(userId, stream) {
 peer.on('connection', conn => {
   conn.on('data', data => {
     addParticipant(data)
-    addNameTag(data.id)
+    // addNameTag(data.id)
     conn.send(myDetails)
   });
 });
@@ -162,6 +162,8 @@ function addVideoStream(video, stream, id) {
 
   if(id == myDetails.id) {
     addNameTag(myDetails.id)
+  } else {
+    addNameTag(id)
   }
 
   Dish()
