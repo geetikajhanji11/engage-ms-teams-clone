@@ -104,22 +104,22 @@ First, you need to download and install node.js and npm.
 ![home-page](public/assets/home.PNG)
 
 * Two people connected in a unique room.
-![two-participants](public/assets/two.PNG)
+![two-participants](public/assets/two.png)
 
 * Three (or more) people can be connected in a unique room.
-![three-participants](public/assets/three.PNG)
+![three-participants](public/assets/three.png)
 
 * List of all current participants on the right side.
-![all-participants](public/assets/participants.PNG)
+![all-participants](public/assets/participants.png)
 
 * Chatroom on the right side.
-![chat-feature](public/assets/chat.PNG)
+![chat-feature](public/assets/chat.png)
 
 * Raise hand feature.
-![raise-hand-feature](public/assets/raise.PNG)
+![raise-hand-feature](public/assets/raise.png)
 
 * Page rendered after user pressed Leave Meeting button.
-![end-page](public/assets/end.PNG)
+![end-page](public/assets/end.png)
 
 <!-- CONTACT -->
 ## Contact
