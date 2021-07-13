@@ -270,6 +270,10 @@ const raiseHand = () => {
 // adds the icon (mute/stop) next to name tag 
 const addNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
+  if(userId == myDetails.id) {
+    let video__overlay = document.getElementsByClassName("video__overlay")[0]
+    name_tag = video__overlay.firstChild
+  }
   let icon = document.createElement('i')
   icon.className = `name-tag-icon fas ${iconClass}`
 
@@ -286,6 +290,10 @@ const addNameTagIcon = (userId, iconClass) => {
 // removes the icon (mute/stop) next to name tag 
 const removeNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
+  if(userId == myDetails.id) {
+    let video__overlay = document.getElementsByClassName("video__overlay")[0]
+    name_tag = video__overlay.firstChild
+  }
   if(typeof name_tag !== "undefined") {
     name_tag.getElementsByClassName(iconClass)[0].remove()
   }
