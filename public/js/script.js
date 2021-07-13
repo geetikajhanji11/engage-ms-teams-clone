@@ -42,8 +42,6 @@ navigator.mediaDevices.getUserMedia({
 
   myVideoStream = stream
   myVideo.muted = true
-  // addVideoStream(myVideo, myVideoStream, myDetails.id)
-  // addNameTag(myDetails.id)
 
   // listens for when a new user is connected to our room
   socket.on('user-connected', userId => {
@@ -51,16 +49,12 @@ navigator.mediaDevices.getUserMedia({
   })
 
   peer.on('call', call => {
-    console.log('answering call...')
     call.answer(stream)
     peers[call.peer] = call
     const video = document.createElement('video')
     call.on('stream', userVideoStream => {
       if(!answerList[call.peer]) {
-        console.log("checkkkkkkkkkkk")
-        console.log(answerList)
         addVideoStream(video, userVideoStream, call.peer)
-        // addNameTag(call.peer)
         answerList[call.peer] = call
       }
     })
@@ -93,7 +87,6 @@ peer.on('open', id => {
   myDetails.lastName = lastName
   addParticipant(myDetails, true)
   addVideoStream(myVideo, myVideoStream, myDetails.id)
-  // addParticipant(myDetails, true)
   socket.emit('join-room', ROOM_ID, id)
 })
 
@@ -138,8 +131,6 @@ peer.on('connection', conn => {
 // adds the video stream to the screen
 function addVideoStream(video, stream, id) {
 
-  console.log(`addVideoStream ka id: ${id}`)
-
   video.srcObject = stream
   video.addEventListener('loadedmetadata', () => {
     video.play()
@@ -153,7 +144,6 @@ function addVideoStream(video, stream, id) {
   video__overlay.className = "video__overlay"
   const name = document.createElement('div')
   name.className = id
-  // name.innerHTML = "No Name"
   video__overlay.append(name)
 
   div.append(video__overlay)
@@ -170,11 +160,7 @@ function addVideoStream(video, stream, id) {
 
 // adds the name tag with the video
 function addNameTag(id) {
-  console.log(`id: ${id}`)
-  console.log(`my id: ${myDetails.id}`)
   let name_element = document.getElementsByClassName(id)[0]
-  console.log("name_element")
-  console.log(name_element)
   for(let i=0; i<participants.length; i++) {
     if(participants[i].id == id) {
       name_element.innerHTML = `${participants[i].firstName} ${participants[i].lastName}`
@@ -297,7 +283,6 @@ const addNameTagIcon = (userId, iconClass) => {
 // removes the icon (mute/stop) next to name tag 
 const removeNameTagIcon = (userId, iconClass) => {
   let name_tag = document.getElementsByClassName(userId)[0]
-  // if(typeof name_tag.getElementsByClassName(iconClass)[0] !== "undefined") {
   if(typeof name_tag !== "undefined") {
     name_tag.getElementsByClassName(iconClass)[0].remove()
   }

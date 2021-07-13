@@ -15,7 +15,7 @@
     A video conferencing web app that can be used to connect with anyone, anywhere!
     <br />
     <br />
-    <a href="...........">Go To Website</a>
+    <a href="https://pure-depths-68147.herokuapp.com/">Go To Web App</a>
   </p>
 </p>
 
@@ -37,6 +37,7 @@ This project is a solution to the challenge posed by the Microsoft Engage 2021 E
 * Video ON / OFF
 * Mute / Unmute
 * Chatroom During Call
+* Hand Raise Feature
 * Show list of all Participants
 
 ![project-image](public/assets/home.PNG)
@@ -86,11 +87,19 @@ First, you need to download and install node.js and npm.
    ```sh
    npm install
    ```
-3. Run the app locally
+3. Change port from "443" to "3000" in `public/js/script.js`
+   ```sh
+   const peer = new Peer(undefined, {
+      path: '/peerjs',
+      host: '/',
+      port: '3000'
+    })
+   ```
+4. Run the app locally
    ```JS
    npm run devStart
    ```
-4. Go to this url on your browser
+5. Go to this url on your browser
    ```JS
    http://localhost:3000/
    ```
