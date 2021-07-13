@@ -41,6 +41,7 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
 
   myVideoStream = stream
+  addVideoStream(myVideo, myVideoStream, myDetails.id)
   myVideo.muted = true
 
   // listens for when a new user is connected to our room
@@ -86,7 +87,6 @@ peer.on('open', id => {
   myDetails.firstName = firstName
   myDetails.lastName = lastName
   addParticipant(myDetails, true)
-  addVideoStream(myVideo, myVideoStream, myDetails.id)
   socket.emit('join-room', ROOM_ID, id)
 })
 
@@ -160,13 +160,17 @@ function addVideoStream(video, stream, id) {
 
 // adds the name tag with the video
 function addNameTag(id) {
+
+  if(id == "") {
+    let video__overlay = document.getElementsByClassName("video__overlay")[0]
+    let name_element = video__overlay.firstChild
+    name_element.innerHTML = "(You)"
+  }
+
   let name_element = document.getElementsByClassName(id)[0]
   for(let i=0; i<participants.length; i++) {
     if(participants[i].id == id) {
       name_element.innerHTML = `${participants[i].firstName} ${participants[i].lastName}`
-      if(id == myDetails.id) {
-        name_element.innerHTML += " (You)"
-      }
       break
     }
   }
@@ -174,7 +178,6 @@ function addNameTag(id) {
 
 
 // ------------------------- MIC MUTE/UNMUTE BUTTON -------------------------
-
 
 // toggles the mute button
 const toggleMute = () => {
